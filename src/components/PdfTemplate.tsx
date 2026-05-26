@@ -66,7 +66,7 @@ export default function PdfTemplate({ formData, logoError, setLogoError }: PdfTe
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           {!logoError ? (
             <img
-              src="./logo.png"
+              src="../../logo.png"
               alt="Dreamy Vacations Logo"
               onError={() => setLogoError(true)}
               style={{
