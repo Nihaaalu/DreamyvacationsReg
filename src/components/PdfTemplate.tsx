@@ -65,18 +65,18 @@ export default function PdfTemplate({ formData, logoError, setLogoError }: PdfTe
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #8a704c', paddingBottom: '24px', marginBottom: '32px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           {!logoError ? (
-            <img
-              src="../../logo.png"
-              alt="Dreamy Vacations Logo"
-              onError={() => setLogoError(true)}
-              style={{
-                height: '112px',
-                width: '112px',
-                objectFit: 'contain',
-                imageRendering: '-webkit-optimize-contrast',
-                transform: 'translateY(2px)'
-              }}
-            />
+          <img
+            src="/logo.png"  /* Notice it starts with a single forward slash */
+            alt="Dreamy Vacations Logo"
+            onError={() => setLogoError(true)}
+            style={{
+              height: '112px',
+              width: '112px',
+              objectFit: 'contain',
+              imageRendering: '-webkit-optimize-contrast',
+              transform: 'translateY(2px)'
+            }}
+          />
           ) : (
             <div style={{ height: '112px', width: '112px', backgroundColor: '#8a704c', color: '#ffffff', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <span style={{ fontSize: '38px', fontWeight: '700', fontFamily: "'Playfair Display', serif" }}>DV</span>
