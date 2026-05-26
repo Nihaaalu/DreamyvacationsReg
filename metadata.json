@@ -1,0 +1,6 @@
+{
+  "name": "Dreamy Vacations",
+  "description": "Premium hotel check-in and guest entry form application with address lookup, localStorage persistence, and optimized print layouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
