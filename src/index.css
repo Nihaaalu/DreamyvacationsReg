@@ -1,0 +1,555 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, Cambria, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  background: #000000;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Inter", sans-serif;
+}
+
+input,
+textarea,
+select {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+* {
+  min-width: 0;
+}
+
+/* Print optimized CSS styles */
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    font-size: 11pt !important;
+    font-family: "Inter", sans-serif !important;
+  }
+
+  /* Hide print buttons, header alerts, and dynamic controls */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Make form container take standard paper boundaries without clipping */
+  .print-container {
+    width: 210mm !important;
+    min-height: auto !important;
+    padding: 10mm 15mm !important;
+    margin: 0 auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  /* Display inputs using clean full borders */
+  .print-input-border {
+    border: 1px solid #d1d5db !important;
+    border-radius: 4px !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    height: 36px !important;
+    padding: 6px 10px !important;
+    font-size: 14px !important;
+    line-height: 22px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    font-family: Arial, sans-serif !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove background colors and shadows */
+  .print-no-bg {
+    background-color: transparent !important;
+    border-color: #000000 !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+  }
+
+  /* Print borders on note boxes */
+  .print-bordered-box {
+    border: 2px solid #000000 !important;
+    background-color: transparent !important;
+    color: #000000 !important;
+  }
+
+  /* Avoid splitting critical sections */
+  .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Force signature section to bottom with clean spacing */
+  .print-footer-spacing {
+    margin-top: 40px !important;
+  }
+}
+
+/* PDF compatibility mode to completely bypass oklch and modern CSS colors for html2canvas */
+.pdf-safe, .pdf-safe * {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background-image: none !important;
+}
+
+/* Make header & sections clearly legible in the output PDF */
+.pdf-safe h1, .pdf-safe h2, .pdf-safe h3, .pdf-safe h4, .pdf-safe h5 {
+  color: #000000 !important;
+  font-weight: bold !important;
+  background-color: transparent !important;
+}
+
+.pdf-safe label, .pdf-safe span, .pdf-safe p, .pdf-safe strong {
+  background-color: transparent !important;
+  color: #1e293b !important;
+}
+
+/* Inputs, radio selections, and form borders */
+.pdf-safe input:not([type="radio"]):not([type="checkbox"]),
+.pdf-safe select,
+.pdf-safe textarea {
+  height: 36px !important;
+  padding: 6px 10px !important;
+  font-size: 14px !important;
+  line-height: 22px !important;
+  box-sizing: border-box !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  border: 1px solid #d1d5db !important;
+  border-radius: 4px !important;
+
+  vertical-align: middle !important;
+
+  font-family: Arial, sans-serif !important;
+  font-weight: 500 !important;
+  color: #111111 !important;
+
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Specific alignment and text overrides */
+.form-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.printed-date-text {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.room-input {
+  text-align: center !important;
+}
+
+.guest-count-input {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Handle select dropdown arrow background override reset */
+.pdf-safe select {
+  background-image: none !important;
+}
+
+/* Retain background logo visibility standard representation */
+.pdf-safe img {
+  background-color: transparent !important;
+}
+
+/* Hide navigation, toolbars, buttons, alerts, suggestions in PDF */
+.pdf-safe .no-print,
+.pdf-safe [role="status"],
+.pdf-safe button {
+  display: none !important;
+}
+
+/* PREMIUM LUXURY PORTRAIT A4 HOTEL REGISTER TEMPLATE STYLING */
+#a4-sheet {
+  width: 1240px !important;
+  min-height: 1754px !important; /* Standard A4 ratio at 1240 width */
+  background: #ffffff !important;
+  padding: 64px 72px !important; /* Luxury padding */
+  box-sizing: border-box !important;
+  font-family: 'Inter', sans-serif !important;
+  color: #0f172a !important;
+  position: relative !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: geometricPrecision !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+#a4-sheet * {
+  box-sizing: border-box !important;
+}
+
+/* Offscreen container for printing */
+.a4-sheet-offscreen {
+  position: absolute !important;
+  left: -9999px !important;
+  top: 0 !important;
+  z-index: -9999 !important;
+  visibility: visible !important;
+}
+
+/* Luxury Typography & Decorative Elements */
+#a4-sheet .luxury-title {
+  font-family: 'Playfair Display', 'Inter', serif !important;
+  font-size: 42px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.5px !important;
+  color: #000000 !important;
+  line-height: 1.1 !important;
+  margin: 0 !important;
+}
+
+#a4-sheet .luxury-subtitle {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  color: #523f28 !important; /* Darker print-safe luxurious gold/bronze */
+  margin-top: 6px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Section design */
+#a4-sheet .pdf-section {
+  margin-bottom: 24px !important; /* Slightly reduced gap to accommodate padding without adding page count */
+  border: 1px solid #94a3b8 !important; /* Subtle thin gray border */
+  border-radius: 0px !important; /* No rounded luxury effects */
+  padding: 16px 20px !important; /* Elegant padding */
+  background: #ffffff !important;
+}
+
+#a4-sheet .pdf-section-title {
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  color: #523f28 !important; /* Darker print-safe luxurious gold/bronze */
+  border-bottom: 1px solid #94a3b8 !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+#a4-sheet .pdf-section-num {
+  font-weight: 700 !important;
+  color: #475569 !important;
+  font-family: 'Playfair Display', serif !important;
+  font-style: italic !important;
+  margin-right: 4px !important;
+}
+
+/* Ledger Rows */
+#a4-sheet .pdf-row-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  column-gap: 48px !important;
+}
+
+#a4-sheet .pdf-ledger-row {
+  display: flex !important;
+  align-items: flex-end !important;
+  margin-bottom: 18px !important; /* Row gap of 18px */
+  min-height: 28px !important;
+}
+
+#a4-sheet .pdf-ledger-label {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important; /* Darker secondary print-safe color */
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  width: 145px !important; /* Increased width to prevent wrapping */
+  min-width: 145px !important; /* Increased width to prevent wrapping */
+  flex-shrink: 0 !important;
+  padding-bottom: 4px !important;
+  white-space: nowrap !important; /* Prevent text wrapping */
+}
+
+#a4-sheet .pdf-ledger-value {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  color: #000000 !important; /* Main content prints black */
+  flex-grow: 1 !important;
+  border-bottom: 1px solid #cbd5e1 !important; /* Thin subtle elegant divider line */
+  padding-bottom: 4px !important;
+  min-height: 24px !important;
+  letter-spacing: 0.2px !important;
+}
+
+/* Accommodation Unified Grid */
+#a4-sheet .luxury-accommodation-card {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 0px !important; /* No rounded luxury effects */
+  padding: 16px 20px !important;
+  display: grid !important;
+  grid-template-columns: 1.2fr 1fr !important;
+  gap: 32px !important;
+}
+
+#a4-sheet .luxury-card-col {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#a4-sheet .luxury-card-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+  color: #523f28 !important; /* Darker print-safe luxurious gold/bronze */
+  margin-bottom: 14px !important;
+}
+
+#a4-sheet .luxury-guest-pill-container {
+  display: flex !important;
+  gap: 16px !important;
+}
+
+#a4-sheet .luxury-guest-pill {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 0px !important; /* No rounded luxury effects */
+  padding: 8px 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-grow: 1 !important;
+  justify-content: center !important;
+}
+
+#a4-sheet .luxury-guest-type {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important; /* Darker secondary print-safe color */
+}
+
+#a4-sheet .luxury-guest-count {
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  color: #000000 !important; /* Main content prints black */
+}
+
+#a4-sheet .luxury-suite-badge-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+#a4-sheet .luxury-suite-badge {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  padding: 6px 14px !important;
+  border-radius: 0px !important; /* No rounded luxury effects */
+  font-size: 17px !important;
+  letter-spacing: 0.5px !important;
+  border: 1px solid #0f172a !important;
+}
+
+#a4-sheet .no-suites-allocated {
+  font-size: 16px !important;
+  color: #475569 !important; /* Darker secondary print-safe color */
+  font-style: italic !important;
+}
+
+/* Custom Icons */
+#a4-sheet .pdf-payment-custom-check {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+}
+
+#a4-sheet .pdf-checkbox-gold {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 0px !important; /* No rounded luxury effects */
+  border: 1.5px solid #523f28 !important; /* Darker gold/bronze */
+  background-color: transparent !important;
+  margin-right: 6px !important;
+  display: inline-block !important;
+}
+
+#a4-sheet .pdf-checkbox-gold.checked {
+  background-color: #523f28 !important;
+}
+
+/* Terms & Notes styling */
+#a4-sheet .luxury-notes-box {
+  background: #ffffff !important; /* Perfect crisp contrast */
+  border: 1px solid #94a3b8 !important; /* Thin gray border */
+  border-radius: 0px !important; /* No rounded luxury effects */
+  padding: 16px 20px !important;
+  margin-top: 12px !important;
+}
+
+#a4-sheet .luxury-notes-title {
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #523f28 !important; /* Darker gold/bronze */
+  letter-spacing: 1.5px !important;
+  margin-bottom: 6px !important;
+  text-transform: uppercase !important;
+}
+
+#a4-sheet .luxury-notes-content {
+  font-size: 16px !important;
+  color: #1e293b !important; /* High contrast text */
+  line-height: 1.45 !important;
+}
+
+#a4-sheet .luxury-notes-item {
+  margin-bottom: 4px !important;
+}
+
+#a4-sheet .luxury-notes-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+#a4-sheet .luxury-checkout-highlight {
+  font-weight: 700 !important;
+  color: #000000 !important; /* Black */
+}
+
+/* Signature & Dated Footer */
+#a4-sheet .luxury-pdf-footer {
+  margin-top: 48px !important;
+  padding-top: 8px !important;
+  font-family: 'Inter', sans-serif !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+#a4-sheet .luxury-footer-date-container {
+  display: flex !important;
+  align-items: center !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+#a4-sheet .luxury-footer-date-lbl {
+  color: #1e293b !important;
+}
+
+#a4-sheet .luxury-footer-date-val {
+  text-transform: none !important;
+  color: #000000 !important;
+  margin-left: 8px !important;
+  font-weight: 700 !important;
+}
+
+#a4-sheet .luxury-footer-sig-container {
+  display: flex !important;
+  align-items: center !important;
+  width: 380px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+#a4-sheet .luxury-footer-sig-lbl {
+  white-space: nowrap !important;
+}
+
+#a4-sheet .luxury-footer-sig-line {
+  flex-grow: 1 !important;
+  border-bottom: 1.5px solid #475569 !important;
+  margin-left: 12px !important;
+  height: 18px !important;
+}
+
+#a4-sheet .luxury-sig-date-center {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* OVERFLOW FIXES */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+input,
+textarea,
+select {
+  min-width: 0;
+}
+
+.flex,
+.grid {
+  min-width: 0;
+}
+
+.relative {
+  min-width: 0;
+}
+
+
+
