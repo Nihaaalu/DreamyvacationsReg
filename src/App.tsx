@@ -339,7 +339,7 @@ export default function App() {
                 </h1>
               </div>
               <p className="text-[11px] uppercase tracking-[4px] text-zinc-500 mt-0.5 font-medium">
-                Luxury Resort Management System
+                Resort Management System
               </p>
             </div>
           </div>
